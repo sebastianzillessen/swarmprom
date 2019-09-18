@@ -8,6 +8,18 @@ networks:
     external: true
 
 services:
+  stress:
+    image: progrium/stress
+    command: '--cpu 5 --io 2 --vm 3 --vm-bytes 256M --timeout 20s'
+    deploy:
+      mode: replicated
+      replicas: 5
+      restart_policy:
+        condition: any
+        delay: 5s
+        window: 20s
+    healthcheck:
+      timeout: 10s
 
   mongo:
     image: healthcheck/mongo:latest
@@ -16,9 +28,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      placement:
-        constraints:
-          - node.role != manager
 
   mongo-exporter:
     image: forekshub/percona-mongodb-exporter:latest

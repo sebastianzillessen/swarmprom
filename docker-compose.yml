@@ -6,9 +6,9 @@ networks:
     attachable: true
 
 volumes:
-    prometheus: {}
-    grafana: {}
-    alertmanager: {}
+  prometheus: {}
+  grafana: {}
+  alertmanager: {}
 
 configs:
   caddy_config:
@@ -110,6 +110,14 @@ services:
           memory: 128M
         reservations:
           memory: 64M
+  alertmanager-teams:
+    image: docker.io/bzon/prometheus-msteams:v1.1.4
+    networks:
+      - net
+    env_file:
+      - teams.env
+    environment:
+      - TEAMS_REQUEST_URI=alertmanager
 
   unsee:
     image: cloudflare/unsee:v0.8.0
