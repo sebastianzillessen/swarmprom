@@ -10,7 +10,7 @@ networks:
 services:
   stress:
     image: progrium/stress
-    command: '--cpu 5 --io 2 --vm 3 --vm-bytes 256M --timeout 20s'
+    command: '--cpu 5 --io 2 --vm 3 --vm-bytes 256M --timeout 500s'
     deploy:
       mode: replicated
       replicas: 5
