@@ -139,7 +139,7 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
-      - /proc/sys/kernel/hostname:/etc/nodename
+      - ./hostname:/etc/nodename
     command:
       - '--path.sysfs=/host/sys'
       - '--path.procfs=/host/proc'
@@ -155,7 +155,7 @@ services:
           memory: 64M
 
   prometheus:
-    image: stefanprodan/swarmprom-prometheus:v2.5.0
+    image: szil/prometheus
     networks:
       - net
     command:
@@ -212,3 +212,13 @@ services:
       interval: 5s
       timeout: 1s
       retries: 5
+  metrics-demo:
+    image: amitsaha/flask_app
+    networks:
+      - net
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    volumes:
+      - ./python-prometheus-demo/flask_app_prometheus_multiprocessing/src:/application

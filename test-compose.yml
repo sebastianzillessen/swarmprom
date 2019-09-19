@@ -13,7 +13,7 @@ services:
     command: '--cpu 5 --io 2 --vm 3 --vm-bytes 256M --timeout 500s'
     deploy:
       mode: replicated
-      replicas: 5
+      replicas: 0
       restart_policy:
         condition: any
         delay: 5s
